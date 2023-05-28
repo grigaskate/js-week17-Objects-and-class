@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+.root {
+  font-family: "Roboto", sans-serif;
+  font-size: 1em;
+  background-color: rgb(238, 246, 246);
+  padding: 20px;
+}
+
+.transportInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+
+.image__transport {
+  max-width: 350px;
+  height: auto;
+  object-fit: contain;
+}
+
+.card__transport {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid rgb(210, 209, 209);
+  border-radius: 5px;
+  min-width: 80%;
+  background-color: white;
+}

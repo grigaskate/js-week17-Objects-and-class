@@ -21,7 +21,7 @@ console.log(worker.getSalary());
 
 //Практическое задание 2
 
-//Объект data
+//Массив data с данными о транспорте, которые нужно вывести на сайт
 const data = [
   {
     id: 1,
@@ -69,7 +69,8 @@ class Transport {
     this.brand = brand;
   }
   getInfo() {
-    return `Type: ${this.type} Brand:${this.brand}`;
+    return `
+    Brand: ${this.brand}`;
   }
   getPrice() {
     return `Price: ${this.price} руб.`;
@@ -98,3 +99,54 @@ class Bike extends Transport {
     return `Max speed of bike: ${this.maxSpeed} км/ч`;
   }
 }
+
+//Создаем главный контейнер
+const transportInfo = document.querySelector(".transportInfo");
+
+//Проводим массив data через функцию forEach
+data.forEach((item) => {
+  let transport;
+  if (item.type === "car") {
+    transport = new Car(item.type, item.price, item.brand, item.doors);
+  } else if (item.type === "bike") {
+    transport = new Bike(item.type, item.price, item.brand, item.maxSpeed);
+  }
+
+  //создаем контейнер для карточки о транспорте
+  const card = document.createElement("div");
+  card.className = "card__transport";
+
+  //создаем контейнер бренда транспорта
+  const brand = document.createElement("p");
+  brand.className = "brand__transport";
+  brand.textContent = transport.getInfo();
+  card.appendChild(brand);
+
+  //создаем контейнер для цены транспорта
+  const price = document.createElement("p");
+  price.className = "price__transport";
+  price.textContent = transport.getPrice();
+  card.appendChild(price);
+
+  // Проверяем тип транспортного средства
+  if (transport instanceof Car) {
+    // Для автомобилей добавляем элемент p для отображения количества дверей
+    const doorsCount = document.createElement("p");
+    doorsCount.textContent = transport.getDoorsCount();
+    card.appendChild(doorsCount);
+  } else if (transport instanceof Bike) {
+    // Для мотоциклов добавляем элемент p для отображения максимальной скорости
+    const maxSpeed = document.createElement("p");
+    maxSpeed.textContent = transport.getMaxSpeed();
+    card.appendChild(maxSpeed);
+  }
+
+  //контейнер для изображения транспорта
+  const image = document.createElement("img");
+  image.className = "image__transport";
+  image.src = item.image;
+  card.appendChild(image);
+
+  // Добавляем карточку транспорта в контейнер transportInfo
+  transportInfo.appendChild(card);
+});
